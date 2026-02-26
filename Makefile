@@ -6,6 +6,9 @@ init:
 status:
 	$(PYTHON) -m src.orchestrator status
 
+bootstrap:
+	$(PYTHON) -m src.orchestrator bootstrap
+
 phase:
 	$(PYTHON) -m src.orchestrator deploy --phase $(N)
 
