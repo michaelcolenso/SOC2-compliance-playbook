@@ -15,10 +15,11 @@ class OrchestratorEngine:
     workflow_file: Path
     state_file: Path
     output_dir: Path
+    prompt_dir: Path = Path("prompts")
 
     def __post_init__(self) -> None:
         self.state = StateManager(self.state_file)
-        self.runner = AgentRunner()
+        self.runner = AgentRunner(prompt_root=self.prompt_dir)
         self.gates = QualityGateEvaluator()
 
     def load_workflow(self) -> dict[str, Any]:

@@ -16,6 +16,7 @@ def build_engine() -> OrchestratorEngine:
         workflow_file=Path(os.getenv("WORKFLOW_FILE", "workflows/soc2_playbook.json")),
         state_file=Path(os.getenv("STATE_FILE", "data/workflow_state.json")),
         output_dir=Path(os.getenv("OUTPUT_DIR", "outputs")),
+        prompt_dir=Path(os.getenv("PROMPT_DIR", "prompts")),
     )
 
 
