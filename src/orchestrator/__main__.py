@@ -26,6 +26,7 @@ def main() -> None:
 
     sub.add_parser("init")
     sub.add_parser("status")
+    sub.add_parser("bootstrap")
 
     deploy = sub.add_parser("deploy")
     deploy.add_argument("--phase", type=int)
@@ -39,6 +40,8 @@ def main() -> None:
         pprint(engine.init())
     elif args.command == "status":
         pprint(engine.status())
+    elif args.command == "bootstrap":
+        pprint(engine.bootstrap())
     elif args.command == "deploy":
         pprint(engine.deploy(phase=args.phase, agent_id=args.agent, run_all=args.all))
 
