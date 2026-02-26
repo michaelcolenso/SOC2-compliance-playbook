@@ -18,7 +18,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env
 make init
-make bootstrap
+make kickoff
 make status
 make phase N=1
 ```
@@ -28,6 +28,7 @@ make phase N=1
 - `make init` – initialize state file
 - `make status` – show orchestration status
 - `make bootstrap` – initialize state (if needed) and run phase 1 agents
+- `make kickoff` – bootstrap and run the full workflow
 - `make phase N=1` – run a workflow phase
 - `make agent A=1.1` – run one agent
 - `make run-all` – run all agents with dependency checks

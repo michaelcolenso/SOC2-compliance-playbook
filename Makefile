@@ -9,6 +9,9 @@ status:
 bootstrap:
 	$(PYTHON) -m src.orchestrator bootstrap
 
+kickoff:
+	$(PYTHON) -m src.orchestrator kickoff
+
 phase:
 	$(PYTHON) -m src.orchestrator deploy --phase $(N)
 

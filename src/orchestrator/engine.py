@@ -40,6 +40,11 @@ class OrchestratorEngine:
             self.init()
         return self.deploy(phase=1)
 
+    def kickoff(self) -> dict[str, Any]:
+        """Bootstrap orchestration and run all agents that can be executed."""
+        self.bootstrap()
+        return self.deploy(run_all=True)
+
     def deploy(self, phase: int | None = None, agent_id: str | None = None, run_all: bool = False) -> dict[str, Any]:
         workflow = self.load_workflow()
         state = self.state.load()
