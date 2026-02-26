@@ -1,0 +1,502 @@
+{
+  "workflow_id": "soc2-playbook-v1",
+  "name": "SOC 2 Compliance Playbook Creation",
+  "description": "Create a comprehensive SOC 2 compliance playbook for bootstrapped SaaS founders",
+  "agents": [
+    {
+      "agent_id": "1.1",
+      "name": "Market Research Synthesizer",
+      "phase": 1,
+      "prompt_file": "phase1_research/market_research.md",
+      "inputs": [],
+      "outputs": [
+        "research/cost_analysis.json",
+        "research/pain_points.md",
+        "research/timeline_examples.json",
+        "research/gap_analysis.md"
+      ],
+      "dependencies": [],
+      "parallelizable": false,
+      "timeout": 7200,
+      "retries": 2
+    },
+    {
+      "agent_id": "1.2",
+      "name": "Expert Interview Coordinator",
+      "phase": 1,
+      "prompt_file": "phase1_research/expert_interviews.md",
+      "inputs": [],
+      "outputs": [
+        "interviews/founder_01_transcript.md",
+        "interviews/founder_02_transcript.md",
+        "interviews/founder_03_transcript.md",
+        "interviews/interview_insights.json"
+      ],
+      "dependencies": [],
+      "parallelizable": false,
+      "timeout": 14400,
+      "retries": 3
+    },
+    {
+      "agent_id": "1.3",
+      "name": "Compliance Documentation Analyzer",
+      "phase": 1,
+      "prompt_file": "phase1_research/compliance_analysis.md",
+      "inputs": [],
+      "outputs": [
+        "compliance/control_matrix.json",
+        "compliance/mvcs.md",
+        "compliance/evidence_requirements.json"
+      ],
+      "dependencies": [],
+      "parallelizable": false,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "2.1",
+      "name": "Playbook Architect",
+      "phase": 2,
+      "prompt_file": "phase2_structure/playbook_architect.md",
+      "inputs": [
+        "research/cost_analysis.json",
+        "research/pain_points.md",
+        "research/timeline_examples.json",
+        "interviews/interview_insights.json",
+        "compliance/mvcs.md"
+      ],
+      "outputs": [
+        "structure/playbook_outline.json",
+        "structure/content_specs.md"
+      ],
+      "dependencies": ["1.1", "1.2", "1.3"],
+      "parallelizable": false,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "2.2",
+      "name": "Template Designer",
+      "phase": 2,
+      "prompt_file": "phase2_structure/template_designer.md",
+      "inputs": [
+        "compliance/mvcs.md",
+        "compliance/evidence_requirements.json"
+      ],
+      "outputs": [
+        "templates/designs/security_policies.md",
+        "templates/designs/access_control.md",
+        "templates/designs/vendor_management.md",
+        "templates/designs/incident_response.md",
+        "templates/designs/audit_prep.md",
+        "templates/customization_guide.md"
+      ],
+      "dependencies": ["1.3"],
+      "parallelizable": true,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.1a",
+      "name": "Chapter Writer - Part 1",
+      "phase": 3,
+      "prompt_file": "phase3_content/chapter_writer.md",
+      "inputs": [
+        "structure/playbook_outline.json",
+        "structure/content_specs.md",
+        "research/cost_analysis.json",
+        "interviews/interview_insights.json"
+      ],
+      "outputs": [
+        "chapters/chapter_01.md",
+        "chapters/chapter_02.md",
+        "chapters/chapter_03.md",
+        "chapters/chapter_04.md"
+      ],
+      "dependencies": ["2.1"],
+      "parallelizable": true,
+      "timeout": 7200,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.1b",
+      "name": "Chapter Writer - Part 2",
+      "phase": 3,
+      "prompt_file": "phase3_content/chapter_writer.md",
+      "inputs": [
+        "structure/playbook_outline.json",
+        "structure/content_specs.md",
+        "research/cost_analysis.json",
+        "interviews/interview_insights.json"
+      ],
+      "outputs": [
+        "chapters/chapter_05.md",
+        "chapters/chapter_06.md",
+        "chapters/chapter_07.md",
+        "chapters/chapter_08.md"
+      ],
+      "dependencies": ["2.1"],
+      "parallelizable": true,
+      "timeout": 7200,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.1c",
+      "name": "Chapter Writer - Part 3",
+      "phase": 3,
+      "prompt_file": "phase3_content/chapter_writer.md",
+      "inputs": [
+        "structure/playbook_outline.json",
+        "structure/content_specs.md",
+        "research/cost_analysis.json",
+        "interviews/interview_insights.json"
+      ],
+      "outputs": [
+        "chapters/chapter_09.md",
+        "chapters/chapter_10.md",
+        "chapters/chapter_11.md",
+        "chapters/chapter_12.md"
+      ],
+      "dependencies": ["2.1"],
+      "parallelizable": true,
+      "timeout": 7200,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.1d",
+      "name": "Chapter Writer - Part 4",
+      "phase": 3,
+      "prompt_file": "phase3_content/chapter_writer.md",
+      "inputs": [
+        "structure/playbook_outline.json",
+        "structure/content_specs.md",
+        "research/cost_analysis.json",
+        "interviews/interview_insights.json"
+      ],
+      "outputs": [
+        "chapters/chapter_13.md",
+        "chapters/chapter_14.md",
+        "chapters/appendices.md"
+      ],
+      "dependencies": ["2.1"],
+      "parallelizable": true,
+      "timeout": 7200,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.2",
+      "name": "Template Generator",
+      "phase": 3,
+      "prompt_file": "phase3_content/template_generator.md",
+      "inputs": [
+        "templates/designs/security_policies.md",
+        "templates/designs/access_control.md",
+        "templates/designs/vendor_management.md",
+        "templates/designs/incident_response.md",
+        "templates/designs/audit_prep.md",
+        "compliance/mvcs.md"
+      ],
+      "outputs": [
+        "templates/generated/",
+        "templates/index.json"
+      ],
+      "dependencies": ["2.2"],
+      "parallelizable": true,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.3",
+      "name": "AI Tool Developer",
+      "phase": 3,
+      "prompt_file": "phase3_content/ai_tool_developer.md",
+      "inputs": [
+        "compliance/mvcs.md",
+        "research/cost_analysis.json",
+        "structure/playbook_outline.json"
+      ],
+      "outputs": [
+        "tools/readiness_scorecard/",
+        "tools/policy_generator/",
+        "tools/auditor_matcher/",
+        "tools/evidence_tracker/",
+        "tools/chatbot/"
+      ],
+      "dependencies": ["2.1"],
+      "parallelizable": true,
+      "timeout": 14400,
+      "retries": 2
+    },
+    {
+      "agent_id": "4.1",
+      "name": "Case Study Compiler",
+      "phase": 4,
+      "prompt_file": "phase4_validation/case_studies.md",
+      "inputs": [
+        "interviews/founder_01_transcript.md",
+        "interviews/founder_02_transcript.md",
+        "interviews/founder_03_transcript.md",
+        "interviews/interview_insights.json",
+        "research/cost_analysis.json"
+      ],
+      "outputs": [
+        "case_studies/case_study_01.md",
+        "case_studies/case_study_02.md",
+        "case_studies/case_study_03.md",
+        "case_studies/case_study_04.md",
+        "case_studies/case_study_05.md",
+        "case_studies/summary_table.json"
+      ],
+      "dependencies": ["1.2", "3.1a", "3.1b", "3.1c", "3.1d"],
+      "parallelizable": true,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "4.2",
+      "name": "Visual Designer",
+      "phase": 4,
+      "prompt_file": "phase4_validation/visual_designer.md",
+      "inputs": [
+        "structure/playbook_outline.json",
+        "chapters/chapter_01.md"
+      ],
+      "outputs": [
+        "visuals/flowcharts/",
+        "visuals/infographics/",
+        "visuals/checklists/",
+        "visuals/branding/"
+      ],
+      "dependencies": ["2.1"],
+      "parallelizable": true,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "4.3",
+      "name": "Technical Reviewer",
+      "phase": 4,
+      "prompt_file": "phase4_validation/technical_reviewer.md",
+      "inputs": [
+        "chapters/chapter_01.md",
+        "chapters/chapter_02.md",
+        "chapters/chapter_03.md",
+        "chapters/chapter_04.md",
+        "chapters/chapter_05.md",
+        "chapters/chapter_06.md",
+        "chapters/chapter_07.md",
+        "chapters/chapter_08.md",
+        "chapters/chapter_09.md",
+        "chapters/chapter_10.md",
+        "chapters/chapter_11.md",
+        "chapters/chapter_12.md",
+        "chapters/chapter_13.md",
+        "chapters/chapter_14.md",
+        "compliance/control_matrix.json"
+      ],
+      "outputs": [
+        "review/technical_review.md",
+        "review/corrections.json"
+      ],
+      "dependencies": ["3.1a", "3.1b", "3.1c", "3.1d"],
+      "parallelizable": false,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "4.4",
+      "name": "Beta Reader Coordinator",
+      "phase": 4,
+      "prompt_file": "phase4_validation/beta_readers.md",
+      "inputs": [
+        "chapters/",
+        "templates/generated/",
+        "case_studies/"
+      ],
+      "outputs": [
+        "feedback/beta_feedback.json",
+        "feedback/priority_changes.md"
+      ],
+      "dependencies": ["3.1a", "3.1b", "3.1c", "3.1d", "3.2", "4.1"],
+      "parallelizable": false,
+      "timeout": 7200,
+      "retries": 2
+    },
+    {
+      "agent_id": "5.1",
+      "name": "Product Packager",
+      "phase": 5,
+      "prompt_file": "phase5_launch/product_packager.md",
+      "inputs": [
+        "chapters/",
+        "templates/generated/",
+        "case_studies/",
+        "visuals/",
+        "tools/"
+      ],
+      "outputs": [
+        "product/soc2_playbook_complete.pdf",
+        "product/templates_package.zip",
+        "product/tools_access.html",
+        "product/getting_started.pdf"
+      ],
+      "dependencies": ["3.1a", "3.1b", "3.1c", "3.1d", "3.2", "3.3", "4.1", "4.2", "4.3", "4.4"],
+      "parallelizable": false,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "5.2",
+      "name": "Sales Page Creator",
+      "phase": 5,
+      "prompt_file": "phase5_launch/sales_page.md",
+      "inputs": [
+        "research/pain_points.md",
+        "case_studies/",
+        "product/soc2_playbook_complete.pdf"
+      ],
+      "outputs": [
+        "marketing/sales_page.md",
+        "marketing/email_sequence.md",
+        "marketing/social_posts.md",
+        "marketing/product_mockups/"
+      ],
+      "dependencies": ["4.1"],
+      "parallelizable": true,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "5.3",
+      "name": "Launch Coordinator",
+      "phase": 5,
+      "prompt_file": "phase5_launch/launch_coordinator.md",
+      "inputs": [
+        "marketing/sales_page.md",
+        "product/",
+        "case_studies/"
+      ],
+      "outputs": [
+        "launch/launch_plan.md",
+        "launch/content_calendar.md",
+        "launch/tracking_sheet.json"
+      ],
+      "dependencies": ["5.1", "5.2"],
+      "parallelizable": false,
+      "timeout": 1800,
+      "retries": 2
+    }
+  ],
+  "quality_gates": {
+    "1.1": {
+      "type": "data_points",
+      "file": "research/cost_analysis.json",
+      "field": "cost_data_points",
+      "min_count": 20
+    },
+    "1.2": {
+      "type": "interviews",
+      "min_count": 3
+    },
+    "1.3": {
+      "type": "file_count",
+      "files": [
+        "compliance/control_matrix.json",
+        "compliance/mvcs.md"
+      ],
+      "min_count": 2
+    },
+    "2.1": {
+      "type": "file_count",
+      "files": [
+        "structure/playbook_outline.json",
+        "structure/content_specs.md"
+      ],
+      "min_count": 2
+    },
+    "2.2": {
+      "type": "file_count",
+      "files": [
+        "templates/designs/security_policies.md",
+        "templates/designs/access_control.md",
+        "templates/designs/vendor_management.md",
+        "templates/designs/incident_response.md",
+        "templates/designs/audit_prep.md"
+      ],
+      "min_count": 5
+    },
+    "3.1": {
+      "type": "page_count",
+      "chapters_dir": "chapters",
+      "min_pages": 80
+    },
+    "3.2": {
+      "type": "file_count",
+      "files": [
+        "templates/index.json"
+      ],
+      "min_count": 1
+    },
+    "3.3": {
+      "type": "file_count",
+      "files": [
+        "tools/readiness_scorecard/index.html",
+        "tools/policy_generator/index.html",
+        "tools/auditor_matcher/index.html"
+      ],
+      "min_count": 3
+    },
+    "4.1": {
+      "type": "file_count",
+      "files": [
+        "case_studies/case_study_01.md",
+        "case_studies/case_study_02.md",
+        "case_studies/case_study_03.md"
+      ],
+      "min_count": 3
+    },
+    "4.2": {
+      "type": "file_count",
+      "files": [
+        "visuals/flowcharts/",
+        "visuals/infographics/",
+        "visuals/checklists/"
+      ],
+      "min_count": 3
+    },
+    "4.3": {
+      "type": "custom",
+      "check_function": "validate_technical_accuracy"
+    },
+    "4.4": {
+      "type": "beta_feedback",
+      "min_responses": 3,
+      "min_rating": 4.0,
+      "min_would_pay_percent": 0.8
+    },
+    "5.1": {
+      "type": "file_count",
+      "files": [
+        "product/soc2_playbook_complete.pdf",
+        "product/templates_package.zip"
+      ],
+      "min_count": 2
+    },
+    "5.2": {
+      "type": "file_count",
+      "files": [
+        "marketing/sales_page.md",
+        "marketing/email_sequence.md"
+      ],
+      "min_count": 2
+    },
+    "5.3": {
+      "type": "file_count",
+      "files": [
+        "launch/launch_plan.md",
+        "launch/content_calendar.md"
+      ],
+      "min_count": 2
+    }
+  }
+}
