@@ -1,31 +1,33 @@
-# SOC2-compliance-playbook
+# SOC2 Compliance Playbook
 
-agentic-repo/
-├── README.md                    # Main documentation
-├── AGENTIC_REPO_GUIDE.md        # Complete setup guide
-├── requirements.txt             # Python dependencies
-├── Makefile                     # Convenience commands
-├── Dockerfile                   # Container definition
-├── docker-compose.yml           # Multi-service orchestration
-├── .env.example                 # Environment template
-├── .gitignore                   # Git ignore rules
-│
-├── workflows/
-│   └── soc2_playbook.json       # 21 agents, 15 quality gates
-│
-├── agents/                      # Agent prompts
-│   ├── phase1_research/market_research.md
-│   └── phase3_content/chapter_writer.md
-│
-├── src/orchestrator/            # Core orchestration
-│   ├── engine.py                # Main orchestrator
-│   ├── state_manager.py         # SQLite state
-│   ├── agent_runner.py          # LLM execution
-│   ├── quality_gates.py         # Validation
-│   └── __main__.py              # CLI
-│
-├── src/monitor/
-│   └── reporter.py              # Progress reports
-│
-└── tests/
-    └── test_orchestrator.py     # Test suite
+Bootstrapped orchestration scaffold for running the SOC 2 multi-agent workflow.
+
+## What is set up
+
+- Workflow definition at `workflows/soc2_playbook.json`
+- CLI orchestrator at `src/orchestrator`
+- Reporting utility at `src/monitor/reporter.py`
+- Local state/output directories (`data/`, `outputs/`, `logs/`, `reports/`)
+- Artifact tracking + dependency-aware deployment + quality gate summaries
+
+## Quick start
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+make init
+make status
+make phase N=1
+```
+
+## Common commands
+
+- `make init` – initialize state file
+- `make status` – show orchestration status
+- `make phase N=1` – run a workflow phase
+- `make agent A=1.1` – run one agent
+- `make run-all` – run all agents with dependency checks
+- `make report` – show summarized progress
+- `make test` – run test suite
