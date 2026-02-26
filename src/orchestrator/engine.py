@@ -32,9 +32,18 @@ class OrchestratorEngine:
     def status(self) -> dict[str, Any]:
         return self.state.load()
 
+    def bootstrap(self) -> dict[str, Any]:
+        """Initialize orchestration state and start the playbook with phase 1 agents."""
+        try:
+            self.state.load()
+        except FileNotFoundError:
+            self.init()
+        return self.deploy(phase=1)
+
     def deploy(self, phase: int | None = None, agent_id: str | None = None, run_all: bool = False) -> dict[str, Any]:
         workflow = self.load_workflow()
         state = self.state.load()
+        state["agents"]["blocked"] = []
 
         candidates = workflow["agents"]
         if agent_id:
@@ -45,18 +54,28 @@ class OrchestratorEngine:
             raise ValueError("Specify --phase, --agent, or --all")
 
         completed = set(state["agents"]["completed"])
+        workflow_by_id = {agent["agent_id"]: agent for agent in workflow["agents"]}
         for agent in candidates:
+            if agent["agent_id"] in completed:
+                continue
+
             deps = set(agent.get("dependencies", []))
             if not deps.issubset(completed):
-                state["agents"]["blocked"].append(agent["agent_id"])
+                if agent["agent_id"] not in state["agents"]["blocked"]:
+                    state["agents"]["blocked"].append(agent["agent_id"])
                 continue
             if agent["agent_id"] in state["agents"]["pending"]:
                 state["agents"]["pending"].remove(agent["agent_id"])
-            state["agents"]["running"].append(agent["agent_id"])
+            if agent["agent_id"] not in state["agents"]["running"]:
+                state["agents"]["running"].append(agent["agent_id"])
             self.runner.run(agent, self.output_dir)
             state["agents"]["running"].remove(agent["agent_id"])
             state["agents"]["completed"].append(agent["agent_id"])
             completed.add(agent["agent_id"])
+
+        completed_phases = [workflow_by_id[completed_id]["phase"] for completed_id in completed if completed_id in workflow_by_id]
+        if completed_phases:
+            state["current_phase"] = max(completed_phases)
 
         state["quality_gates"] = self.gates.evaluate(workflow, self.output_dir)
         self.state.save(state)
