@@ -5,6 +5,7 @@ Bootstrapped orchestration scaffold for running the SOC 2 multi-agent workflow.
 ## What is set up
 
 - Workflow definition at `workflows/soc2_playbook.json`
+- Comprehensive content creation workflow guide at `workflows/content_creation_agentic_workflow.md`
 - Agent instruction prompts at `prompts/` (sourced from `output.md`, `output2.md`, `output3.md`)
 - CLI orchestrator at `src/orchestrator`
 - Reporting utility at `src/monitor/reporter.py`
