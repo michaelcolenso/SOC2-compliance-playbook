@@ -69,7 +69,11 @@
         "structure/playbook_outline.json",
         "structure/content_specs.md"
       ],
-      "dependencies": ["1.1", "1.2", "1.3"],
+      "dependencies": [
+        "1.1",
+        "1.2",
+        "1.3"
+      ],
       "parallelizable": false,
       "timeout": 3600,
       "retries": 2
@@ -91,7 +95,9 @@
         "templates/designs/audit_prep.md",
         "templates/customization_guide.md"
       ],
-      "dependencies": ["1.3"],
+      "dependencies": [
+        "1.3"
+      ],
       "parallelizable": true,
       "timeout": 3600,
       "retries": 2
@@ -113,7 +119,9 @@
         "chapters/chapter_03.md",
         "chapters/chapter_04.md"
       ],
-      "dependencies": ["2.1"],
+      "dependencies": [
+        "2.1"
+      ],
       "parallelizable": true,
       "timeout": 7200,
       "retries": 2
@@ -135,7 +143,9 @@
         "chapters/chapter_07.md",
         "chapters/chapter_08.md"
       ],
-      "dependencies": ["2.1"],
+      "dependencies": [
+        "2.1"
+      ],
       "parallelizable": true,
       "timeout": 7200,
       "retries": 2
@@ -157,7 +167,9 @@
         "chapters/chapter_11.md",
         "chapters/chapter_12.md"
       ],
-      "dependencies": ["2.1"],
+      "dependencies": [
+        "2.1"
+      ],
       "parallelizable": true,
       "timeout": 7200,
       "retries": 2
@@ -178,7 +190,9 @@
         "chapters/chapter_14.md",
         "chapters/appendices.md"
       ],
-      "dependencies": ["2.1"],
+      "dependencies": [
+        "2.1"
+      ],
       "parallelizable": true,
       "timeout": 7200,
       "retries": 2
@@ -200,7 +214,9 @@
         "templates/generated/",
         "templates/index.json"
       ],
-      "dependencies": ["2.2"],
+      "dependencies": [
+        "2.2"
+      ],
       "parallelizable": true,
       "timeout": 3600,
       "retries": 2
@@ -222,9 +238,66 @@
         "tools/evidence_tracker/",
         "tools/chatbot/"
       ],
-      "dependencies": ["2.1"],
+      "dependencies": [
+        "2.1"
+      ],
       "parallelizable": true,
       "timeout": 14400,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.4",
+      "name": "Content Fact Checker",
+      "phase": 3,
+      "prompt_file": "phase3_content/content_fact_checker.md",
+      "inputs": [
+        "chapters/",
+        "compliance/control_matrix.json",
+        "compliance/mvcs.md",
+        "research/cost_analysis.json",
+        "interviews/interview_insights.json"
+      ],
+      "outputs": [
+        "review/fact_check_report.md",
+        "review/fact_check_issues.json"
+      ],
+      "dependencies": [
+        "3.1a",
+        "3.1b",
+        "3.1c",
+        "3.1d",
+        "1.3"
+      ],
+      "parallelizable": false,
+      "timeout": 3600,
+      "retries": 2
+    },
+    {
+      "agent_id": "3.5",
+      "name": "Editorial Integrator",
+      "phase": 3,
+      "prompt_file": "phase3_content/editorial_integrator.md",
+      "inputs": [
+        "chapters/",
+        "structure/content_specs.md",
+        "structure/playbook_outline.json",
+        "review/fact_check_report.md",
+        "review/fact_check_issues.json"
+      ],
+      "outputs": [
+        "chapters/manuscript_v1.md",
+        "chapters/editorial_change_log.md",
+        "chapters/cross_reference_map.json"
+      ],
+      "dependencies": [
+        "3.1a",
+        "3.1b",
+        "3.1c",
+        "3.1d",
+        "3.4"
+      ],
+      "parallelizable": false,
+      "timeout": 3600,
       "retries": 2
     },
     {
@@ -247,7 +320,14 @@
         "case_studies/case_study_05.md",
         "case_studies/summary_table.json"
       ],
-      "dependencies": ["1.2", "3.1a", "3.1b", "3.1c", "3.1d"],
+      "dependencies": [
+        "1.2",
+        "3.1a",
+        "3.1b",
+        "3.1c",
+        "3.1d",
+        "3.5"
+      ],
       "parallelizable": true,
       "timeout": 3600,
       "retries": 2
@@ -267,7 +347,9 @@
         "visuals/checklists/",
         "visuals/branding/"
       ],
-      "dependencies": ["2.1"],
+      "dependencies": [
+        "2.1"
+      ],
       "parallelizable": true,
       "timeout": 3600,
       "retries": 2
@@ -298,7 +380,13 @@
         "review/technical_review.md",
         "review/corrections.json"
       ],
-      "dependencies": ["3.1a", "3.1b", "3.1c", "3.1d"],
+      "dependencies": [
+        "3.1a",
+        "3.1b",
+        "3.1c",
+        "3.1d",
+        "3.5"
+      ],
       "parallelizable": false,
       "timeout": 3600,
       "retries": 2
@@ -317,7 +405,15 @@
         "feedback/beta_feedback.json",
         "feedback/priority_changes.md"
       ],
-      "dependencies": ["3.1a", "3.1b", "3.1c", "3.1d", "3.2", "4.1"],
+      "dependencies": [
+        "3.1a",
+        "3.1b",
+        "3.1c",
+        "3.1d",
+        "3.2",
+        "4.1",
+        "3.5"
+      ],
       "parallelizable": false,
       "timeout": 7200,
       "retries": 2
@@ -340,7 +436,19 @@
         "product/tools_access.html",
         "product/getting_started.pdf"
       ],
-      "dependencies": ["3.1a", "3.1b", "3.1c", "3.1d", "3.2", "3.3", "4.1", "4.2", "4.3", "4.4"],
+      "dependencies": [
+        "3.1a",
+        "3.1b",
+        "3.1c",
+        "3.1d",
+        "3.2",
+        "3.3",
+        "4.1",
+        "4.2",
+        "4.3",
+        "4.4",
+        "3.5"
+      ],
       "parallelizable": false,
       "timeout": 3600,
       "retries": 2
@@ -361,7 +469,10 @@
         "marketing/social_posts.md",
         "marketing/product_mockups/"
       ],
-      "dependencies": ["4.1"],
+      "dependencies": [
+        "4.1",
+        "3.5"
+      ],
       "parallelizable": true,
       "timeout": 3600,
       "retries": 2
@@ -381,7 +492,10 @@
         "launch/content_calendar.md",
         "launch/tracking_sheet.json"
       ],
-      "dependencies": ["5.1", "5.2"],
+      "dependencies": [
+        "5.1",
+        "5.2"
+      ],
       "parallelizable": false,
       "timeout": 1800,
       "retries": 2
@@ -497,6 +611,23 @@
         "launch/content_calendar.md"
       ],
       "min_count": 2
+    },
+    "3.4": {
+      "type": "file_count",
+      "files": [
+        "review/fact_check_report.md",
+        "review/fact_check_issues.json"
+      ],
+      "min_count": 2
+    },
+    "3.5": {
+      "type": "file_count",
+      "files": [
+        "chapters/manuscript_v1.md",
+        "chapters/editorial_change_log.md",
+        "chapters/cross_reference_map.json"
+      ],
+      "min_count": 3
     }
   }
 }
